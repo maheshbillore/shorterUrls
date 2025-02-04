@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=600, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>URL Shortened</title>
+</head>
+<body>
+    <div class="container" >
+        <h1> URL Shortener </h1>
+        <form id="shortener-form" >
+            <div>
+                <label for="url">Enter Url name:</label>
+                <input type="url" id="url" name="url" required />
+            </div>
+
+            <div>
+                <label for="shortCode">Enter shortCode:</label>
+                <input type="text" id="shortCode" name="shortCode" required />
+            </div>
+            <button type="submit">Shortened</button>
+        </form>
+        <h2>Shortened URLs</h2>
+        <ul id="shortened-urls"></ul>
+    </div>
+    <script>
+      
+        const fetchShortedUrls= async ()=>{ 
+            const response = await fetch("/links"); 
+            const links = await response.json();  
+
+            const list=document.getElementById("shortened-urls");
+            list.innerHTML="";
+            for(const[ shortCode,url] of Object.entries(links)){
+               const li=document.createElement('li');
+               li.innerHTML=`<a href=${url} target="_blank" >${shortCode}</a>`;
+               list.appendChild(li); 
+            }
+            
+        }
+        document.getElementById('shortener-form').addEventListener('submit', async (event)=>{
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const url = formData.get("url");
+            const shortCode = formData.get("shortCode");
+               
+            try {
+                const response=await fetch("/shorten",{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify({url,shortCode}),
+                });
+
+                if(response.ok){
+                    alert("short code generate successfully!");
+                    fetchShortedUrls();
+                    event.target.reset(); 
+                }else{
+                    let errorMessage=await response.text();
+                    alert(errorMessage);
+                }
+ 
+            } catch (error) {   
+                console.log(`Error : ${error}`); 
+            }
+        })
+
+ 
+    </script>
+</body>
+</html>
