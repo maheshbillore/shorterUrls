@@ -1,0 +1,15 @@
+{
+  "name": "shorterurls",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"node --watch app.js",
+    "start":"node app.js"
+  },
+  "keywords": [],
+  "author": "Er-Mahesh-Billore",
+  "license": "ISC", 
+  "description": ""
+}
+  
