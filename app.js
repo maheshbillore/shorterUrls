@@ -93,7 +93,7 @@ const server = createServer(async (req, resp) => {
     }
 
 });
-const PORT = 3000;
+const PORT = 10000; 
 
 
 server.listen(PORT, () => {
