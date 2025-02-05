@@ -7,12 +7,12 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #b5a4e6;
+    background-color: #ababab;;
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; 
 }
 
 .container {
